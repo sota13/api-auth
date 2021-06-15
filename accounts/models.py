@@ -1,14 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 
-# Create your models here.
-from django.core.validators import RegexValidator
-
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
-USERNAME_REGEX = '^[a-zA-Z0-9.+-]*$'
+
+# Create your models here.
 
 
 class MyUserManager(BaseUserManager):
@@ -26,7 +24,7 @@ class MyUserManager(BaseUserManager):
 
     def create_superuser(self, email, password=None):
         user = self.create_user(
-            email, password=password
+            email=email, password=password
         )
         user.is_admin = True
         user.is_staff = True
@@ -35,15 +33,7 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(
-        max_length=300,
-        validators=[
-            RegexValidator(regex=USERNAME_REGEX,
-                           message='Username must be alphanumeric or contain numbers',
-                           code='invalid_username'
-                           )],
-        unique=True
-    )
+    name = models.CharField(max_length=150, blank=True)
     email = models.EmailField(
         max_length=255,
         unique=True,
@@ -58,7 +48,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.email
+        return self.name
 
     def get_short_name(self):
         # The user is identified by their email address

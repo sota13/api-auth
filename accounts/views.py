@@ -25,7 +25,7 @@ def registerUser(request):
     data = request.data
     try:
         user = User.objects.create(
-            username=data['username'],
+            name=data['name'],
             email=data['email'],
             password=make_password(data['password'])
         )

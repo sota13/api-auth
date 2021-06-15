@@ -9,7 +9,7 @@ import { register } from '../actions/userActions'
 
 function RegisterScreen({ location, history }) {
 
-    const [username, setUsername] = useState('')
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -34,7 +34,7 @@ function RegisterScreen({ location, history }) {
         if (password !== confirmPassword) {
             setMessage('Passwords do not match')
         } else {
-            dispatch(register(username, email, password))
+            dispatch(register(name, email, password))
         }
 
     }
@@ -48,13 +48,13 @@ function RegisterScreen({ location, history }) {
             <Form onSubmit={submitHandler}>
 
                 <Form.Group controlId='name'>
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>Name</Form.Label>
                     <Form.Control
                         required
                         type='name'
-                        placeholder='Enter Username'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder='Enter Name'
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     >
                     </Form.Control>
                 </Form.Group>
@@ -95,7 +95,7 @@ function RegisterScreen({ location, history }) {
                     </Form.Control>
                 </Form.Group>
 
-                <Button type='submit' variant='primary'>
+                <Button type='submit' variant='primary' className='custom-margin-top'>
                     Register
                 </Button>
 
